@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import "./App.css";
 // import { FormControl, Select, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
+import InfoBox from "./components/InfoBox";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -18,12 +19,11 @@ function App() {
       const countries = data.map((country) => ({
         name: country.country,
         value: country.countryInfo.iso2,
-      }))
+      }));
       setCountries(countries);
       // fetch("https://disease.sh/v3/covid-19/countries")
       // .then((response) => response.json())
       // .then((data) => {
-        
 
       // });
     };
@@ -43,13 +43,18 @@ function App() {
         <FormControl className="app__dropdown">
           <Select variant="outlined" value={country} onChange={onCountryChange}>
             <MenuItem value="worldwide">worldwide</MenuItem>
-                      {countries.map((country,key) => (
-                          <MenuItem key={key} value={country.value}>{country.name}</MenuItem>
-                        ))}
-
-            
+            {countries.map((country, key) => (
+              <MenuItem key={key} value={country.value}>
+                {country.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
+      </div>
+      <div className="app__stats">
+        <InfoBox title="Cases" cases="2000" total="1.2M" />
+        <InfoBox title="Recovered" cases="5000" total="2.2M" />
+        <InfoBox title="Deaths" cases="100" total="1000" />
       </div>
     </div>
   );
